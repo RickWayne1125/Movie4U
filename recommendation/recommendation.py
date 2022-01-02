@@ -3,7 +3,7 @@ import pymongo
 # 输入为当前用户userId
 # 返回为该用户推荐的10个电影的movieId
 def recommendationForUser(thisUserId):
-    myClient = pymongo.MongoClient("mongodb://mongodb.chufanchen.com:27017/")
+    myClient = pymongo.MongoClient("MongoDB_uri")
     myDb = myClient["MovieLens"]
     tableRatings = myDb["ratings"]
     tableSimilarities = myDb["similarities"]
