@@ -26,7 +26,15 @@
                 <!-- <div class="checklist__item-poster">
                   {{comment.comment}}
                 </div> -->
+                <div class="checklist_item-button">
+                    <el-button type="warning" icon="el-icon-star-off" circle></el-button>
+                    <el-button type="danger" icon="el-icon-delete" circle></el-button>
+                </div>
             </div>
+        </div>
+
+        <div class="refresh-button">
+            <el-button type="primary" icon="el-icon-refresh" circle></el-button>
         </div>
 
         <!-- DISPLAY BLOCK -->
@@ -35,6 +43,11 @@
     <!-- 引入Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- 引入组件库 -->
-    <script src="src/main.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- 引入本地JS -->
+    <script src="src/main.js"></script>
+</body>
+
 </html>
