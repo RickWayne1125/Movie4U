@@ -32,5 +32,18 @@ Léon: The Professional (a.k.a. The Professional) (Léon) (1994)
 
 ----
 
+一页展示8个热门电影，每个tag取两个，由于tagId-movieIdArray内tag对应movieId集合是不等长的，
+- 多于两个者，只取两个
+- 一个者，直接取
+- 无对应者，跳过
+总计取8个movieId
 
+tag取法：暂定静态，从1取到1126【总tag数1128，后两似乎没热片？】
+init_pop_movies 返回无重复的电影id集合
+样例：
+迭代结束的随机数：871
+8部热门影片id：{26150, 905, 2731, 3089, 26578, 916, 213, 3415}
 
+----
+
+推荐通过累计用户选择，跟数据库similarity库比较?
