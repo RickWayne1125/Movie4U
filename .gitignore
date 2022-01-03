@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Test Module
+front-end-test/
+
+# NPM Libs
+node_modules/
+
+# Vue
+vue_space/
