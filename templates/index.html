@@ -1,12 +1,40 @@
-<head>
-    <!-- 引入样式 -->
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-</head>
+<!DOCTYPE html>
+<html>
+    <title>Movie4U</title>
 
+    <head>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+    </head>
 
-<!-- 引入Vue -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<!-- 引入组件库 -->
-<script src="src/main.js"></script>
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <body>
+        <!-- HEAD BLOCK -->
+
+        <!-- CHECK BLOCK -->
+        <div class="checklist" id="checkList">
+            <div class="checklist__item" v-for="(movie, index) in check_movies">
+                <div class="checklist__item-meta">
+                  <div class="checklist__item-name">
+                    {{index + 1}}：
+                    {{movie.name}}
+                  </div>
+                  <div class="checklist__item-tag">
+                    {{movie.tag}}
+                  </div>
+                </div>
+                <!-- <div class="checklist__item-poster">
+                  {{comment.comment}}
+                </div> -->
+            </div>
+        </div>
+
+        <!-- DISPLAY BLOCK -->
+    </body>
+
+    <!-- 引入Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="src/main.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</html>
