@@ -10,8 +10,13 @@ logger = logging.getLogger(__name__)
  
 from flask import Flask, request
 
- 
- 
+@app.route('/data', methods=['GET', 'POST'])
+def recommend():
+    movieList = request.args.getlist('movie', type=int)
+    print(movieList)
+    return json.dump(recommendation_engine.recommend(movieList))
+
+
 def create_app(spark):
     global recommendation_engine 
 
