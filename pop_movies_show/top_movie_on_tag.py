@@ -2,8 +2,8 @@ from random import randrange
 import pymongo
 
 tag_num_max = 1126
-db_uri = "localhost"
-movie_info_db_name = "test"  # 本地:test，远程:MovieLens
+db_uri = "mongodb://mongodb.chufanchen.com:27017"
+movie_info_db_name = "MovieLens"  # 本地:test，远程:MovieLens
 movie_info_col_name = "movies"
 tag_info_col_name = "genome-tags"
 tag_movie_array_col_name = "tagId-movieIdArray"
