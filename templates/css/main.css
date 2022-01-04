@@ -5,37 +5,45 @@
     text-align: center;
     background-color: rgb(87, 87, 87);
     border-radius: 18px;
-    &:last-child ;
+    &:last-child;
     -webkit-border-radius: 18px;
     -moz-border-radius: 18px;
     -ms-border-radius: 18px;
     -o-border-radius: 18px;
-  {
-      margin-bottom: 0;
+
+        {
+        margin-bottom: 0;
     }
-  }
-  .el-col {
+}
+
+.el-col {
     border-radius: 4px;
-  }
-  .bg-purple-dark {
+}
+
+.bg-purple-dark {
     background: #99a9bf;
-  }
-  .bg-purple {
+}
+
+.bg-purple {
     background: #d3dce6;
-  }
-  .bg-purple-light {
+}
+
+.bg-purple-light {
     background: #e5e9f2;
-  }
-  .grid-content {
+}
+
+.grid-content {
     border-radius: 4px;
     min-height: 36px;
-  }
-  .row-bg {
+}
+
+.row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
-  }
-  /* Container */
-  .el-header {
+}
+
+/* Container */
+.el-header {
     background-color: #b3c0d1;
     color: #333;
     text-align: center;
@@ -43,8 +51,9 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     margin-top: 10px;
-  }
-  .el-footer {
+}
+
+.el-footer {
     background-color: #758caa;
     color: #333;
     text-align: center;
@@ -52,31 +61,38 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     margin-bottom: 10px;
-  }
-  .el-aside {
+}
+
+.el-aside {
     background-color: #d3dce6;
     color: #333;
     text-align: center;
     line-height: 200px;
-  }
-  
-  .el-main {
+}
+
+.el-main {
     background-color: #e9eef3;
     color: #333;
     text-align: center;
     line-height: 160px;
-  }
-  
-  body > .el-container {
+}
+
+body>.el-container {
     margin-bottom: 40px;
-  }
-  
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
+}
+
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
     line-height: 260px;
-  }
-  
-  .el-container:nth-child(7) .el-aside {
+}
+
+.el-container:nth-child(7) .el-aside {
     line-height: 320px;
-  }
-  
+}
+
+/* Font */
+.subtitle {
+    color: #e5e9f2;
+    font-size: 20px;
+    font-family: "Helvetica Neue";
+}

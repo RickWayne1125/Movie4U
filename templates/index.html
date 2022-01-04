@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <title>Movie4U</title>
-  
+
 <head>
   <!-- 引入样式 -->
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -11,21 +11,26 @@
 <body>
   <div id="app">
     <!-- HEAD BLOCK -->
+    <p align="center">
+      <img src="LOGO.png"></img>
+    </p>
     <div class=headline>
-
     </div>
     <!-- CHECK BLOCK -->
     <div class="checklist" id="checkList">
       <!-- Check Movies -->
       <el-row :gutter="20">
+        <span class="subtitle">Here is Movie Check Box</span>
         <div class="checklist_item" v-for="(movie, index) in check_movies">
           <el-col :span="3">
             <el-container>
               <el-header>{{movie.name}}</el-header>
-              <img style="width: 100%; height: auto; background-size:contain;"
-                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F246907e641edd915ba79bc54abaa84b9b116013b2063c-eutAok_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643866502&t=0387f1b089f1231eda907d0ee13ad212"></img>
+              <el-image style="width: 100%; height: auto; background-size:contain;"
+                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F246907e641edd915ba79bc54abaa84b9b116013b2063c-eutAok_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643866502&t=0387f1b089f1231eda907d0ee13ad212">
+              </el-image>
               <el-footer>
-                <el-button id=index type="warning" icon="el-icon-star-off" round @click="addPreMovie(index)" v-bind:disabled="button[index]"></el-button>
+                <el-button id=index type="warning" icon="el-icon-star-off" round @click="addPreMovie(index)"
+                  v-bind:disabled="button[index]"></el-button>
                 <!-- <div>{{movie.tag}}</div> -->
               </el-footer>
             </el-container>
@@ -33,11 +38,22 @@
         </div>
       </el-row>
       <!-- Control Panel -->
-      <el-button type="danger" icon="el-icon-delete" @click="removeAll">RESET</el-button>
-      <el-button type="primary" icon="el-icon-refresh" @click="refreshMovies">REFRESH</el-button>
-      <el-button type="success" icon="el-icon-check">START RECOMMENDATION</el-button>
+      <el-container style="height: auto;">
+        <el-main style="line-height: 30px;">
+          <el-alert title="Notice" type="info" :closable="false" center show-icon>
+            You Have Picked {{pre_movies.length}} Movies.
+          </el-alert>
+        </el-main>
+        <el-aside style="line-height: 60px; width: 550px; align-items: center;">
+          <el-button type="danger" icon="el-icon-delete" @click="removeAll">RESET</el-button>
+          <el-button type="primary" icon="el-icon-refresh" @click="refreshMovies">REFRESH</el-button>
+          <el-button type="success" icon="el-icon-check" @click="getRecommend">START RECOMMENDATION</el-button>
+        </el-aside>
+      </el-container>
+      <!-- <span style="background-color: #409EFF;border-radius: 6px;"> You Have Picked {{pre_movies.length}} Movies. </span> -->
       <!-- Remove Movies -->
       <el-row :gutter="20">
+        <span class="subtitle">Here are Movies You Have Picked</span>
         <div class="checklist_item" v-for="(movie, index) in pre_movies">
           <el-col :span="3">
             <el-container>

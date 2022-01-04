@@ -1,4 +1,4 @@
-var url = "https://185.196.220.38";
+var url = "http://127.0.0.1:5000";
 var app = new Vue({
   el: "#app",
   data: {
@@ -51,12 +51,13 @@ var app = new Vue({
   methods: {
     refreshMovies() {
       axios
-        .get(url + "/")
-        .then((response) => (this.check_movies = response.data.init_list))
+        .get(url + "/init")
+        .then((response) => (this.check_movies = response.data))
         .catch(function (error) {
           // 请求失败处理
           console.log(error);
         });
+      this.button = [false, false, false, false, false, false, false, false];
     },
     addPreMovie(index) {
       var id = this.check_movies[index].id;
