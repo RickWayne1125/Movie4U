@@ -14,7 +14,7 @@ from flask import Flask, request
 def recommend():
     movieList = request.args.getlist('movie', type=int)
     print(movieList)
-    return json.dump(recommendation_engine.recommend(movieList))
+    return json.dumps(recommendation_engine.recommend(movieList))
 
 
 def create_app(spark):

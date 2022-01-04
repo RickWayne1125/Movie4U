@@ -18,16 +18,22 @@ class RecommendationEngine:
             print("start %d" % movieId)
             tableSimilaritiesFiltered = tableSimilarities.filter(tableSimilarities.movieId_1 == movieId)
             tmp = result 
-            tableSimilaritiesFiltered = tableSimilaritiesFiltered.withColumnRenamed("movieId_1", "movieId").drop("_id")
-            tmp = tmp.join(tableSimilaritiesFiltered, tableSimilaritiesFiltered.movieId == tmp.movieId, "left_outer").fillna(0).drop("movieId", "_id", "title", "genres").withColumnRenamed("movieID_2", "movieId")
+            # tmp.show()
+            tableSimilaritiesFiltered = tableSimilaritiesFiltered.drop("_id")
+            # tableSimilaritiesFiltered.show()
+            tmp = tmp.join(tableSimilaritiesFiltered, tableSimilaritiesFiltered.movieId_2 == tmp.movieId, "left_outer").fillna(0)
+            tmp.show()
+            tmp = tmp.drop("movieId_1", "_id", "title", "genres", "movieId_2")
             tmp = tmp.withColumnRenamed("value", "y")
             result = result.withColumnRenamed("interest", "x")
-            tmp.show()
-            result.show()
+            # tmp.show()
             result = result.join(tmp, result.movieId == tmp.movieId, "left_outer").select(result.movieId, result.x, tmp.y).fillna(0)
             result = result.withColumn("interest", col("x") + col("y")).drop("x", "y", "value")
+            result = result.dropDuplicates()
+            result.show()
 
-        top10 = [int(row.movieId) for row in results.limit(10).select("movieId").collect()]
+        result = result.orderBy(result.interest.desc())
+        top10 = [int(row.movieId) for row in result.limit(10).select("movieId").collect()]
         return top10
 
     
