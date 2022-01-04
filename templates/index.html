@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <title>Movie4U</title>
-
+  
 <head>
   <!-- 引入样式 -->
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -33,8 +33,8 @@
         </div>
       </el-row>
       <!-- Control Panel -->
-      <el-button type="danger" icon="el-icon-delete">RESET</el-button>
-      <el-button type="primary" icon="el-icon-refresh">REFRESH</el-button>
+      <el-button type="danger" icon="el-icon-delete" @click="removeAll">RESET</el-button>
+      <el-button type="primary" icon="el-icon-refresh" @click="refreshMovies">REFRESH</el-button>
       <el-button type="success" icon="el-icon-check">START RECOMMENDATION</el-button>
       <!-- Remove Movies -->
       <el-row :gutter="20">
