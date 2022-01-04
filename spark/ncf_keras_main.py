@@ -35,9 +35,9 @@ import movielens
 import ncf_common
 import ncf_input_pipeline
 import neumf_model
-import core as flags_core
-import keras_utils
-import model_helpers
+from official.utils.flags import core as flags_core
+from official.utils.misc import keras_utils
+from official.utils.misc import model_helpers
 
 FLAGS = flags.FLAGS
 

@@ -27,10 +27,10 @@ import numpy as np
 import tensorflow as tf
 
 from official.common import distribute_utils
-from official.recommendation import constants as rconst
-from official.recommendation import data_pipeline
-from official.recommendation import data_preprocessing
-from official.recommendation import movielens
+import constants as rconst
+import data_pipeline
+import data_preprocessing
+import movielens
 from official.utils.flags import core as flags_core
 
 FLAGS = flags.FLAGS
@@ -174,7 +174,7 @@ def define_ncf_flags():
   flags_core.set_defaults(
       model_dir="/tmp/ncf/",
       data_dir="/tmp/movielens-data/",
-      dataset=movielens.ML_1M,
+      dataset=movielens.ML_LATEST,
       train_epochs=2,
       batch_size=99000,
       tpu=None)

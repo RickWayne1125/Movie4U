@@ -28,10 +28,10 @@ import numpy as np
 import scipy.stats
 import tensorflow as tf
 
-from official.recommendation import constants as rconst
-from official.recommendation import data_preprocessing
-from official.recommendation import movielens
-from official.recommendation import popen_helper
+import constants as rconst
+import data_preprocessing
+import movielens
+import popen_helper
 
 DATASET = "ml-test"
 NUM_USERS = 1000
