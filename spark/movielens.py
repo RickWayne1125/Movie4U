@@ -124,9 +124,9 @@ def _download_and_clean(dataset, data_dir):
     if dataset == ML_1M:
       _regularize_1m_dataset(temp_dir)
     elif dataset == ML_20M:
-      _regularize_latest_dataset(temp_dir)
-    else:
       _regularize_20m_dataset(temp_dir)
+    else:
+      _regularize_latest_dataset(temp_dir)
 
     for fname in tf.io.gfile.listdir(temp_dir):
       if not tf.io.gfile.exists(os.path.join(data_subdir, fname)):
