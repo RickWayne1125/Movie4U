@@ -2,10 +2,11 @@ from pathlib import Path
 from random import randrange
 import pymongo
 import os.path
+import time
 
 tag_num_max = 1126
-db_uri = "localhost"  # localhost mongodb://mongodb.chufanchen.com:27017
-movie_info_db_name = "test"  # 本地:test，远程:MovieLens
+db_uri = "mongodb://mongodb.chufanchen.com:27017"  # localhost 
+movie_info_db_name = "MovieLens"  # 本地:test，远程:MovieLens
 movie_info_col_name = "movies"
 tag_info_col_name = "genome-tags"
 tag_movie_array_col_name = "tagId-movieIdArray"
@@ -53,9 +54,10 @@ def get_check_list():
     movie_id_set = set()
     max_len = 8
     movie_cnt = 2
-    tag_id = 1
-    # tag_id = randrange(tag_num_max)
+    # tag_id = 1
+    tag_id = randrange(tag_num_max)
     # print("randomId",tag_id)
+    time0=time.time()
     while len(check_list) != max_len:
         tag_name = get_tag_info(tag_id)
         tmp_array, tmp_cnt = get_movie_array_on_tag(tag_id, movie_cnt)
@@ -78,6 +80,7 @@ def get_check_list():
             check_list.append(list_item)
         movie_cnt = min(max_len - len(check_list), 2)
         tag_id = (tag_id + 1) % tag_num_max
+    print(time.time()-time0)
     return check_list
 
 
