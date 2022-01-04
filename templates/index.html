@@ -32,6 +32,10 @@
           </el-col>
         </div>
       </el-row>
+      <!-- Control Panel -->
+      <el-button type="danger" icon="el-icon-delete">RESET</el-button>
+      <el-button type="primary" icon="el-icon-refresh">REFRESH</el-button>
+      <el-button type="success" icon="el-icon-check">START RECOMMENDATION</el-button>
       <!-- Remove Movies -->
       <el-row :gutter="20">
         <div class="checklist_item" v-for="(movie, index) in pre_movies">
@@ -47,7 +51,6 @@
           </el-col>
         </div>
       </el-row>
-      <el-button type="danger" icon="el-icon-delete" circle></el-button>
     </div>
     <!-- DISPLAY BLOCK -->
   </div>
