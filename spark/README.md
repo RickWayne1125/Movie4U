@@ -9,3 +9,5 @@ Recommendation engine using Collaborative Filtering-Alternating Least Square
 Recommendation engine using Factorization Machines
 4. recommendation.ipynb
 Adoption of `../recommendation/recommendation.py` for Spark
+5. Submuit
+spark-submit --master spark://chufanchen.com:7077 --total-executor-cores 14 --executor-memory 6g server.py 

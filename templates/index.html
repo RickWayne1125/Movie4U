@@ -26,7 +26,7 @@
             <el-container>
               <el-header>{{movie.name}}</el-header>
               <el-image style="width: 100%; height: auto; background-size:contain;"
-                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F246907e641edd915ba79bc54abaa84b9b116013b2063c-eutAok_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643866502&t=0387f1b089f1231eda907d0ee13ad212">
+                v-bind:src="check_movies[index].url">
               </el-image>
               <el-footer>
                 <el-button id=index type="warning" icon="el-icon-star-off" round @click="addPreMovie(index)"
@@ -52,23 +52,44 @@
       </el-container>
       <!-- <span style="background-color: #409EFF;border-radius: 6px;"> You Have Picked {{pre_movies.length}} Movies. </span> -->
       <!-- Remove Movies -->
+      <div v-if="pre_movies.length > 0">
+        <el-row :gutter="20">
+          <span class="subtitle">Here are Movies You Have Picked</span>
+          <div class="checklist_item" v-for="(movie, index) in pre_movies">
+            <el-col :span="3">
+              <el-container>
+                <el-header>{{movie.name}}</el-header>
+                <img style="width: 100%; height: auto; background-size:contain;"
+                  v-bind:src="pre_movies[index].url"></img>
+                <el-footer>
+                  <el-button type="danger" icon="el-icon-delete" circle @click="removePreMovie(index)"></el-button>
+                </el-footer>
+              </el-container>
+            </el-col>
+          </div>
+        </el-row>
+      </div>
+    </div>
+    <!-- DISPLAY BLOCK -->
+    <div v-if="rec_movies.length > 0">
       <el-row :gutter="20">
-        <span class="subtitle">Here are Movies You Have Picked</span>
+        <span class="subtitle">Here are Recommending Movies For You</span>
         <div class="checklist_item" v-for="(movie, index) in pre_movies">
           <el-col :span="3">
             <el-container>
               <el-header>{{movie.name}}</el-header>
-              <img style="width: 100%; height: auto; background-size:contain;"
-                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F246907e641edd915ba79bc54abaa84b9b116013b2063c-eutAok_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643866502&t=0387f1b089f1231eda907d0ee13ad212"></img>
+              <img style="width: 100%; height: auto; background-size:contain;" v-bind:src="rec_movies[index].url"></img>
               <el-footer>
-                <el-button type="danger" icon="el-icon-delete" circle @click="removePreMovie(index)"></el-button>
+                <div class=movie_tag>
+                  {{movie.tag}}
+                </div>
               </el-footer>
             </el-container>
           </el-col>
         </div>
       </el-row>
     </div>
-    <!-- DISPLAY BLOCK -->
+
   </div>
 
 </body>
