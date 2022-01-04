@@ -1,0 +1,75 @@
+/* Layout */
+.el-row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  background-color: rgb(87, 87, 87);
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.el-col {
+  border-radius: 4px;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+/* Container */
+.el-header {
+  background-color: #b3c0d1;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: 10px;
+}
+.el-footer {
+  background-color: #758caa;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-bottom: 10px;
+}
+.el-aside {
+  background-color: #d3dce6;
+  color: #333;
+  text-align: center;
+  line-height: 200px;
+}
+
+.el-main {
+  background-color: #e9eef3;
+  color: #333;
+  text-align: center;
+  line-height: 160px;
+}
+
+body > .el-container {
+  margin-bottom: 40px;
+}
+
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+  line-height: 260px;
+}
+
+.el-container:nth-child(7) .el-aside {
+  line-height: 320px;
+}
