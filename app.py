@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template,redirect
 from flask import make_response
 from flask_cors import CORS
 
@@ -24,8 +24,13 @@ def init_pop_movies():
     init_list = get_check_list()
     resp = make_response('Test')
     resp.set_cookie('same-site-cookie', 'strict', samesite='Lax')
-    # return resp
     return jsonify(init_list)
+
+
+@app.route('/')
+def index():
+    return redirect('http://localhost:63342/Movie4U/templates/index.html?_ijt=fe0kqs6r9814cck6g97opdu5bo')
+    # return render_template('index.html')
 
 
 if __name__ == '__main__':

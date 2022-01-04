@@ -46,4 +46,7 @@ init_pop_movies 返回无重复的电影id集合
 
 ----
 
-推荐通过累计用户选择，跟数据库similarity库比较?
+使用set进行影片id去重
+原tag_id = 163 时
+{'id': 1089, 'name': 'Reservoir Dogs (1992)', 'tag': 'brutal'}
+{'id': 1089, 'name': 'Reservoir Dogs (1992)', 'tag': 'brutality'}

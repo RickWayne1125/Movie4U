@@ -4,7 +4,7 @@ from pyspark.mllib.recommendation import ALS
 import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
+ALS
 
 def get_counts_and_averages(ID_and_ratings_tuple):
     """Given a tuple (movieID, ratings_iterable) 
