@@ -9,9 +9,9 @@ class RecommendationEngine:
     """A movie recommendation engine
     """
 
-    def recommend(movieList):
-        tableSimilarities = spark.read.format("mongo").load()
-        tableMovies = spark.read.format("mongo").option("uri", "mongodb://127.0.0.1/MovieLens.movies").load()
+    def recommend(self, movieList):
+        tableSimilarities = self.spark.read.format("mongo").load()
+        tableMovies = self.spark.read.format("mongo").option("uri", "mongodb://127.0.0.1/MovieLens.movies").load()
         result = tableMovies.drop("_id", "genres", "title")
         result = result.withColumn("interest", lit(0))
         for movieId in movieList:
