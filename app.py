@@ -29,8 +29,9 @@ def init_pop_movies():
 
 @app.route('/')
 def index():
-    return redirect('http://localhost:63342/Movie4U/templates/index.html?_ijt=fe0kqs6r9814cck6g97opdu5bo')
+    # return redirect('http://localhost:63342/Movie4U/templates/index.html?_ijt=fe0kqs6r9814cck6g97opdu5bo')
     # return render_template('index.html')
+    pass
 
 
 if __name__ == '__main__':

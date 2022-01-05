@@ -58,6 +58,8 @@ var app = new Vue({
     pre_movies: [],
     rec_movies: [],
     button: [false, false, false, false, false, false, false, false],
+    loading: true,
+    start_rec: false,
   },
   methods: {
     refreshMovies() {
@@ -87,7 +89,7 @@ var app = new Vue({
         id: id,
         name: name,
         url: url,
-        tag: tag
+        tag: tag,
       });
       this.button[index] = true;
       console.log(JSON.stringify(this.pre_movies));
@@ -112,9 +114,16 @@ var app = new Vue({
       console.log(this.rec_movies.length);
     },
     getRecommend() {
+      this.start_rec = true;
+      this.loading = true;
+      console.log(this.start_rec);
+      console.log(this.loading);
       axios
         .post(backend + "/recommend")
-        .then((response) => (this.rec_movies = response.data))
+        .then((response) => {
+          this.rec_movies = response.data;
+          this.loading = false;
+        })
         .catch(function (error) {
           console.log(error);
         });
