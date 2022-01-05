@@ -1,19 +1,16 @@
-from pathlib import Path
-from random import randrange
-import pymongo
-import os.path
 import time
 
+import pymongo
+
 tag_num_max = 1126
-db_uri = "mongodb.chufanchen.com:27017"  # mongodb.chufanchen.com:27017
-movie_info_db_name = "MovieLens"  # 本地:test，远程:MovieLens
+db_uri = "mongodb.chufanchen.com:27017"
+movie_info_db_name = "MovieLens"
 movie_info_col_name = "movies"
 tag_info_col_name = "genome-tags"
 tag_movie_array_col_name = "tagId-movieIdArray"
 hot_movie_on_single_tag_col_name = "hot_movie_on_single_tag"
 client = pymongo.MongoClient(db_uri)
 root_db = client[movie_info_db_name]
-pic_folder_path = "/home/cqu/mlp-20m/MLP-20M"  # 图片文件夹路径
 skip_len = 0
 LIMIT_LEN = 8
 
@@ -56,10 +53,13 @@ def get_check_list():
     col = root_db[hot_movie_on_single_tag_col_name]
     time0 = time.time()
     second = time.localtime().tm_sec % 46  # 数据集369，最多46组
-    print("second:", second)
+    # print("second:", second)
     hot_movie_list = col.find().skip(second * LIMIT_LEN).limit(LIMIT_LEN)
     check_list = [i for i in hot_movie_list]
-    print("cost: ", time.time() - time0)
+    # check_list = []
+    # for hot_movie in hot_movie_list:
+    #     check_list.append(hot_movie)
+    # print("cost: ", time.time() - time0)
     return check_list
 
 
