@@ -4,8 +4,11 @@ import pymongo
 import os.path
 import time
 
+from .. import config
+
 tag_num_max = 1126
-db_uri = "mongodb.chufanchen.com:27017"  # mongodb.chufanchen.com:27017
+# db_uri = "mongodb.chufanchen.com:27017"  # mongodb.chufanchen.com:27017
+db_uri = config.database['url']
 movie_info_db_name = "MovieLens"  # 本地:test，远程:MovieLens
 movie_info_col_name = "movies"
 tag_info_col_name = "genome-tags"
