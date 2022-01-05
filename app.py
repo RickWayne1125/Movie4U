@@ -1,8 +1,9 @@
-from flask import Flask, jsonify, render_template,redirect
+from flask import Flask, jsonify, render_template, redirect, request
 from flask import make_response
 from flask_cors import CORS
 
-from pop_movies_show.top_movie_on_tag import get_check_list
+from pop_movies_show.top_movie_on_tag import get_check_list, get_movie_info_by_list
+import requests
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -27,10 +28,25 @@ def init_pop_movies():
     return jsonify(init_list)
 
 
+#  movieId list  ->  url -> item requests  数量: 前端：24  spark返回：无穷
+#  请求spark格式 localhost:5432/data?movie=12&movie=1&movie=180
+@app.route('/recommend', methods=['POST'])
+def recommend():
+    # 前端提供偏好电影list中，取前24个
+    # pre_movie_list = [1, 2, 3] # 测试，数组内容为int
+    pre_movie_list = request.form.get('pre_movies')[:24]
+    new_list = ["movie=" + str(i) for i in pre_movie_list]
+    param = '&'.join(new_list)
+    url = "localhost:5432/data?" + param
+    # 认为response为推荐电影id列表
+    rec_movie_list = requests.get(url)
+    # 前端在此取得data数据
+    data = get_movie_info_by_list(rec_movie_list)
+    return jsonify(data)
+
+
 @app.route('/')
 def index():
-    # return redirect('http://localhost:63342/Movie4U/templates/index.html?_ijt=fe0kqs6r9814cck6g97opdu5bo')
-    # return render_template('index.html')
     pass
 
 
