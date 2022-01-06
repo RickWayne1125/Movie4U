@@ -65,14 +65,12 @@ var app = new Vue({
     refreshMovies() {
       axios
         .get(backend + "/init")
-        .then((response) => {
-          this.check_movies = response.data;
-          this.button = [false, false, false, false, false, false, false, false];
-        })
+        .then((response) => (this.check_movies = response.data))
         .catch(function (error) {
           // 请求失败处理
           console.log(error);
         });
+      this.button = [false, false, false, false, false, false, false, false];
     },
     addPreMovie(index) {
       var id = this.check_movies[index].id;

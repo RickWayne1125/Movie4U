@@ -71,26 +71,22 @@
       </div>
     </div>
     <!-- DISPLAY BLOCK -->
-    <div v-if="start_rec">
-      <el-row :gutter="20" v-loading="loading">
+    <div v-if="rec_movies.length > 0">
+      <el-row :gutter="20">
         <span class="subtitle">Here are Recommending Movies For You</span>
-        <div v-if="rec_movies.length > 0">
-          <div class="checklist_item" v-for="(movie, index) in rec_movies">
-            <el-col :span="3">
-              <el-container>
-                <el-header>{{movie.name}}</el-header>
-                <img style="width: 100%; height: auto; background-size:contain;"
-                  v-bind:src="rec_movies[index].url"></img>
-                <el-footer>
-                  <div class=movie_tag>
-                    {{movie.tag}}
-                  </div>
-                </el-footer>
-              </el-container>
-            </el-col>
-          </div>
+        <div class="checklist_item" v-for="(movie, index) in pre_movies">
+          <el-col :span="3">
+            <el-container>
+              <el-header>{{movie.name}}</el-header>
+              <img style="width: 100%; height: auto; background-size:contain;" v-bind:src="rec_movies[index].url"></img>
+              <el-footer>
+                <div class=movie_tag>
+                  {{movie.tag}}
+                </div>
+              </el-footer>
+            </el-container>
+          </el-col>
         </div>
-
       </el-row>
     </div>
 

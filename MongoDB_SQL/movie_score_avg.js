@@ -1,4 +1,4 @@
-
+// 计算电影均分
 db.ratings.aggregate([
     {
         $group: {
