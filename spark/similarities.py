@@ -10,13 +10,11 @@ class RecommendationEngine:
     """
 
     def recommend(self, movieList):
-        tableSimilarities = self.spark.read.format("mongo").load()
-        tableMovies = self.spark.read.format("mongo").option("uri", "mongodb://127.0.0.1/MovieLens.movies").load()
-        result = tableMovies.drop("_id", "genres", "title")
+        result = self.tableMovies.drop("_id", "genres", "title")
         result = result.withColumn("interest", lit(0))
         for movieId in movieList:
             print("start %d" % movieId)
-            tableSimilaritiesFiltered = tableSimilarities.filter(tableSimilarities.movieId_1 == movieId)
+            tableSimilaritiesFiltered = self.tableSimilarities.filter(self.tableSimilarities.movieId_1 == movieId)
             tmp = result 
             # tmp.show()
             tableSimilaritiesFiltered = tableSimilaritiesFiltered.drop("_id")
@@ -44,3 +42,5 @@ class RecommendationEngine:
         logger.info("Starting up the Recommendation Engine: ")
 
         self.spark = spark
+        self.tableSimilarities = self.spark.read.format("mongo").load()
+        self.tableMovies = self.spark.read.format("mongo").option("uri", "mongodb://127.0.0.1/MovieLens.movies").load()
