@@ -1,5 +1,6 @@
 import os
 from pyspark.mllib.recommendation import ALS
+from pyspark.sql.DataFrame import columns
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -23,40 +24,46 @@ class RecommendationEngine:
         the current data self.ratings_RDD
         """
         logger.info("Counting movie ratings...")
-        movie_ID_with_ratings_RDD = self.ratings_RDD.map(lambda x: (x[1], x[2])).groupByKey()
-        movie_ID_with_avg_ratings_RDD = movie_ID_with_ratings_RDD.map(get_counts_and_averages)
-        self.movies_rating_counts_RDD = movie_ID_with_avg_ratings_RDD.map(lambda x: (x[0], x[1][0]))
+        self.ratingsCount = self.ratingsDF.count()
+        self.moviesCount = self.moviesDF.count()
+        print('There are {0} ratings and {1} movies in the datasets.'.format(self.ratingsCount, self.moviesCount))
 
 
     def __train_model(self):
         """Train the ALS model with the current dataset
         """
         logger.info("Training the ALS model...")
-        self.model = ALS.train(self.ratings_RDD, self.rank, seed=self.seed,
-                               iterations=self.iterations, lambda_=self.regularization_parameter)
+        self.spark.conf.set("spark.sql.shuffle.partitions", "16")
+        als = (ALS()
+            .setUserCol("userId")
+            .setItemCol("movieId")
+            .setRatingCol("rating")
+            .setPredictionCol("predictions")
+            .setMaxIter(2)
+            .setSeed(self.seed)
+            .setRegParam(0.1)
+            .setColdStartStrategy("drop")
+            .setRank(12))
+        self.alsModel = als.fit(self.trainingDF)
         logger.info("ALS model built!")
 
 
-    def __predict_ratings(self, user_and_movie_RDD):
+    def __predict_ratings(self, user_and_movieDF):
         """Gets predictions for a given (userID, movieID) formatted RDD
         Returns: an RDD with format (movieTitle, movieRating, numRatings)
         """
-        predicted_RDD = self.model.predictAll(user_and_movie_RDD)
-        predicted_rating_RDD = predicted_RDD.map(lambda x: (x.product, x.rating))
-        predicted_rating_title_and_count_RDD = \
-            predicted_rating_RDD.join(self.movies_titles_RDD).join(self.movies_rating_counts_RDD)
-        predicted_rating_title_and_count_RDD = \
-            predicted_rating_title_and_count_RDD.map(lambda r: (r[1][0][1], r[1][0][0], r[1][1]))
+        predictedDF = self.model.predictAll(user_and_movieDF)
+        predicted_ratingDF = predicted_RDD.map(lambda x: (x.product, x.rating))
         
         return predicted_rating_title_and_count_RDD
     
     def add_ratings(self, ratings):
         """Add additional movie ratings in the format (user_id, movie_id, rating)
         """
-        # Convert ratings to an RDD
-        new_ratings_RDD = self.sc.parallelize(ratings)
+        # Convert ratings to an dataframe
+        new_ratings = self.spark.createDataFrame(ratings, columns)
         # Add new ratings to the existing ones
-        self.ratings_RDD = self.ratings_RDD.union(new_ratings_RDD)
+        self.ratingsDF = self.ratingsDF.union(new_ratings)
         # Re-compute movie ratings count
         self.__count_and_average_ratings()
         # Re-train the ALS model with the new ratings
@@ -84,35 +91,30 @@ class RecommendationEngine:
 
         return ratings
 
-    def __init__(self, sc, dataset_path):
+    def __init__(self, spark, dataset_path):
         """Init the recommendation engine given a Spark context and a dataset path
         """
 
         logger.info("Starting up the Recommendation Engine: ")
 
-        self.sc = sc
+        self.spark = spark
 
         # Load ratings data for later use
         logger.info("Loading Ratings data...")
-        ratings_file_path = os.path.join(dataset_path, 'ratings.csv')
-        ratings_raw_RDD = self.sc.textFile(ratings_file_path)
-        ratings_raw_data_header = ratings_raw_RDD.take(1)[0]
-        self.ratings_RDD = ratings_raw_RDD.filter(lambda line: line!=ratings_raw_data_header)\
-            .map(lambda line: line.split(",")).map(lambda tokens: (int(tokens[0]),int(tokens[1]),float(tokens[2]))).cache()
+        ratings_df_schema = "userId integer, movieId integer, rating float"
+        self.ratingsDF = spark.read.csv("../datasets/ml-latest/ratings.csv", header=True, schema=ratings_df_schema).cache()
         # Load movies data for later use
         logger.info("Loading Movies data...")
-        movies_file_path = os.path.join(dataset_path, 'movies.csv')
-        movies_raw_RDD = self.sc.textFile(movies_file_path)
-        movies_raw_data_header = movies_raw_RDD.take(1)[0]
-        self.movies_RDD = movies_raw_RDD.filter(lambda line: line!=movies_raw_data_header)\
-            .map(lambda line: line.split(",")).map(lambda tokens: (int(tokens[0]),tokens[1],tokens[2])).cache()
-        self.movies_titles_RDD = self.movies_RDD.map(lambda x: (int(x[0]),x[1])).cache()
+        movies_df_schema = "ID integer, title string"
+        self.moviesDF = spark.read.csv("../datasets/ml-latest/movies.csv", header=True, schema=movies_df_schema)
         # Pre-calculate movies ratings counts
         self.__count_and_average_ratings()
 
         # Train the model
-        self.rank = 8
-        self.seed = 5
-        self.iterations = 10
+        self.rank = 12
+        self.seed = 42
+        self.iterations = 2
         self.regularization_parameter = 0.1
+        (self.trainingDF, self.testDF) = self.ratingsDF.randomSplit([0.8, 0.2], seed=self.seed)
+        print('Training: {0}, test: {1}'.format(self.trainingDF.count(), self.testDF.count()))
         self.__train_model() 
