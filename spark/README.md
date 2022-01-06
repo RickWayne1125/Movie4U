@@ -13,7 +13,7 @@ Recommendation engine using Factorization Machines
 Adoption of `../recommendation/recommendation.py` for Spark
 
 5. Submuit to Spark Cluster
-`spark-submit --master spark://chufanchen.com:7077 --packages org.mongodb.spark:mongo-spark-connector_2.12:3.0.1 --total-executor-cores 14 --executor-memory 6g server.py `
+`spark-submit --master spark://chufanchen.com:7077 --packages org.mongodb.spark:mongo-spark-connector_2.12:3.0.1 --total-executor-cores 24 --executor-memory 6g server.py `
 6. Test API
 `curl 'localhost:5432/data?movie=12&movie=1&movie=180'`
 7. movielens.py

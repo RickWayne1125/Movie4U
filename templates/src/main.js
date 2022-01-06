@@ -1,4 +1,4 @@
-var backend = "http://127.0.0.1:5000";
+var backend = "http://chufanchen.com:5000";
 var test_url = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F246907e641edd915ba79bc54abaa84b9b116013b2063c-eutAok_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643866502&t=0387f1b089f1231eda907d0ee13ad212";
 var app = new Vue({
   el: "#app",
@@ -65,12 +65,14 @@ var app = new Vue({
     refreshMovies() {
       axios
         .get(backend + "/init")
-        .then((response) => (this.check_movies = response.data))
+        .then((response) => {
+          this.check_movies = response.data;
+          this.button = [false, false, false, false, false, false, false, false];
+        })
         .catch(function (error) {
           // 请求失败处理
           console.log(error);
         });
-      this.button = [false, false, false, false, false, false, false, false];
     },
     addPreMovie(index) {
       var id = this.check_movies[index].id;
@@ -116,8 +118,13 @@ var app = new Vue({
       this.loading = true;
       console.log(this.start_rec);
       console.log(this.loading);
+      param = [];
+      for(var i in this.pre_movies){
+        param.push(this.pre_movies[i]['id']);
+      }
+      console.log(param)
       axios
-        .post(backend + "/recommend")
+        .post(backend + "/recommend", {pre_movies: param})
         .then((response) => {
           this.rec_movies = response.data;
           this.loading = false;

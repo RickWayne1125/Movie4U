@@ -34,14 +34,17 @@ def init_pop_movies():
 def recommend():
     # 前端提供偏好电影list中，取前24个
     # pre_movie_list = [1, 2, 3] # 测试，数组内容为int
-    pre_movie_list = request.form.get('pre_movies')[:24]
+    print(request.get_json())
+    pre_movie_list = request.get_json()['pre_movies'][:24]
     new_list = ["movie=" + str(i) for i in pre_movie_list]
     param = '&'.join(new_list)
-    url = "localhost:5432/data?" + param
+    url = "http://localhost:5432/data?" + param
     # 认为response为推荐电影id列表
-    rec_movie_list = requests.get(url)
+    rec_movie_list = requests.get(url).json()
+    print(rec_movie_list)
     # 前端在此取得data数据
     data = get_movie_info_by_list(rec_movie_list)
+    print(data)
     return jsonify(data)
 
 
@@ -51,4 +54,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
