@@ -163,6 +163,17 @@ $$
 其中$Sim_{ab}$代表电影<sub>a</sub>与电影<sub>b</sub>的相似度。$R_{ua}$代表用户<sub>u</sub>对电影<sub>a</sub>的兴趣度，该值可以根据用户<sub>u</sub>对电影<sub>a</sub>的评分等数据进行计算。$N(u)$代表用户<sub>u</sub>喜爱的电影集合。$S(b,K)$代表与电影<sub>b</sub>最相似的K个电影。  
 最终计算出用户对其他所有可能感兴趣电影的兴趣度，为用户推荐兴趣度最高的10个电影。
 
+
+
+数据冷启动处理：
+
+前端热门电影选择处理，由于`hot_movie_on_unique_tag ` 最终形成`369`部与其单标签相关度`>0.9`且用户评分`>4.0`电影，为确保用户刷新尽可能不出现重复电影，采用8部一批，通过切片时间，返回各自独立区间的电影集合。查询中使用`skip`划定区间，`limit`限制选择电影数量
+
+```python
+second = time.localtime().tm_sec % 46  # 数据集369，分为最多46组
+hot_movie_list = col.find().skip(second * LIMIT_LEN).limit(LIMIT_LEN)
+```
+
 ### 前端设计
 
 #### 原型设计
