@@ -14,6 +14,6 @@ spark = {
 }
 pic_folder = {
     'url': 'pic link'       # The Path For Pic Folder
-    # access a picture with <pic_link['url]> + xx.jpg
+    # access a picture with <pic_link['url']> + xx.jpg
 }
 ```
