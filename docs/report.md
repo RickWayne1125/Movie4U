@@ -328,6 +328,8 @@ axios
 
 #### WR
 
+之前前端开发的经验并不多，也没有系统的学习过前端开发的流程，对于前端开发框架方面，也只有一点 React 的使用经验，于是通过这次项目的机会系统地学习了一下前端开发的流程以及 Vue 的使用。不得不说 Vue 数据驱动的特性确实十分方便，模板语法使用起来也比原生的 html 语法美观且高效很多，配合上成熟的组件库 ElementUI，进一步将页面划分为多个容器分别进行设计，确实大大提升了前端开发的效率。理解了标准的页面开发流程后，通过绘制原型图、将页面分区制作，整个代码逻辑和区块也比较清晰。前期在负责 API 文档编写时一些细节没有严格规定好，导致了后面的前后端对接出现了不少问题，好在组内及时沟通一起 debug 解决了这些问题，以后再编写接口文档一定会依照更加严格的标准。
+
 #### CCF
 
 学习并搭建了MongoDB, Apache Spark集群。使用PySpark Dataframe API编写推荐算法(spark/similarities/)，使用flask+cherrypy搭建后端。使用Spark MLlib ALS模型建立uFeature和iFeature矩阵，使用tensorflow模型进行调参，最后使用Horovod进行分布式训练和预测(spark/Scalable Movie Recommendations.ipynb)。
