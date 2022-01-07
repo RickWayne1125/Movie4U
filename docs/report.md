@@ -354,12 +354,14 @@ axios
 > 不少于10篇中英文参考文献，并且在报告正文中按照学术规范予以正确的标注。不得列入正文中没有引用的参考文献
 
 [^1]: https://cn.vuejs.org/v2/guide/syntax.html 
-[^2]: https://d.wanfangdata.com.cn/periodical/ChlQZXJpb2RpY2FsQ0hJTmV3UzIwMjExMjMwEg1kbnh4MjAyMTA3MDQzGghsajJueDlqMw%3D%3D
-[^3]: https://d.wanfangdata.com.cn/periodical/ChlQZXJpb2RpY2FsQ0hJTmV3UzIwMjExMjMwEg9manpsZ2wyMDE5MTcyMTkaCHd0YmJmYWJp
-[^4]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESB0Q3Mjg2NzcaCHd1cm85cHY0
-[^5]: https://d.wanfangdata.com.cn/periodical/ChlQZXJpb2RpY2FsQ0hJTmV3UzIwMjExMjMwEg1yamRrMjAxNTA4MDMyGghmM2Q5c2R5Zg%3D%3D
-[^6]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESCUQwMTY4MTI5MhoIYnZyd3VzZjM%3D
-[^7]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESCFkzNjg1OTUzGghoN2Zlc2o3YQ%3D%3D
-[^8]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESCUQwMTc4MTY4NBoIaDdmZXNqN2E%3D
-[^9]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESCFkzNTU5NTc4GghoN2Zlc2o3YQ%3D%3D
-[^10]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESCUQwMTU5MTk5MRoIYTZ3Z3p2NTE%3D
+
+[^2]: 赵岩,刘宏伟.推荐系统综述[J].智能计算机与应用,2021,17(7):228-233.DOI:10.3969/j.issn.2095-2163.2021.07.043.
+
+[^3]: 徐超颖.个性化推荐系统概述[J].福建质量管理,2019(17):286.DOI:10.3969/j.issn.1673-9604.2019.17.219.
+[^4]: 张海朋.基于协同过滤的电影推荐系统的构建[D].西安电子科技大学,2015.DOI:10.7666/d.D728677.
+[^5]: 黄莹,宋伟伟,邓春玲,等.协同过滤算法在电影推荐系统中的应用[J].软件导刊,2015,14(8):92-93.DOI:10.11907/rjdk.151400.
+[^6]: 刘文佳.基于混合协同过滤的个性化电影推荐系统研究[D].武汉理工大学,2018.
+[^7]: 邓亚文.基于物品推荐系统的协同过滤算法研究[D].长沙理工大学,2018.
+[^8]: 杨海龙.基于物品的协同过滤算法的电影推荐系统[D].兰州交通大学,2019.
+[^9]: 李启序.基于协同过滤的个性化推荐系统的研究[D].安徽理工大学,2019.
+[^10]: 张世显.基于协同过滤算法的个性化推荐研究[D].长春理工大学,2018.
