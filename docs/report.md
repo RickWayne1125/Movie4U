@@ -57,6 +57,13 @@
 | 数据存储           | 使用 MongoDB 实现                    | 能做到数据集信息完全存储   |
 
 ### 可行性分析
+#### 社会、健康、安全可行性分析
+&emsp;&emsp;本项目不会对现有的政治体制、方针政策、经济结构、法律道德、宗教民族、妇女儿童及社会稳定性等造成不良影响。另一方面，当今社会娱乐生活已经成为人们生活的重要组成部分，个性化电影推荐系统满足社会实际需求。在众多电影中，为用户推荐高质量的电影，不仅满足用户的观影体验，同时为用户节省下挑选电影的时间。因此本项目具有良好的市场前景，项目的可用性和推广性高。
+#### 法律可行性分析
+&emsp;&emsp;本项目完全由项目小组成员协作开发完成，具有实际意义，使用代码均为开源代码，使用软件均为正版软件，使用数据集为开放数据集MovieLens，故不存在侵权、妨碍等责任。
+#### 技术可行性分析
+&emsp;&emsp;本项目采用协同过滤推荐算法，协同过滤推荐算法是目前应用最广泛、最成熟的推荐算法，具有良好的稳定性。项目部署在Spark平台，提供更为快速通用的集群计算环境，为推荐计算过程提供了保障。本项目设计了基于WEB前后台系统，数据库采用MongoDB，MongoDB可以为WEB应用提供可扩展的高性能数据存储，保障了系统的稳定性。最终，项目在MovieLens数据集进行了实验测试，对项目的技术可行性进行了实验验证。
+
 
 ## 系统设计
 > 系统的功能设计。系统如何存储数据，这样存储的目的是什么？系统处理大数据的方案是什么？分析推荐系统算法的时间复杂度、空间复杂度和实际运行时间
@@ -212,20 +219,20 @@ data: {
 ### 算法分析
 
 #### 推荐算法
-&emsp;&emsp;推荐系统的基本思想是利用用户和物品的特征信息，为用户推荐那些具有用户喜欢的物品的特征的物品。如根据用户喜欢的物品，为其推荐与用户喜欢的物品相似的物品，或者为用户推荐与他喜好类似的用户喜欢的物品。  
-&emsp;&emsp;Tapestry邮件过滤系统是最早的推荐系统，此后研究者们陆续提出了基于协同过滤的推荐算法、基于内容的推荐算法、基于关联规则的推荐算法以及基于多种规则的混合推荐算法。而基于协同过滤的推荐算法是目前实际生产环境中应用最多最广泛的推荐算法，协同过滤算法主要分为三种，第一种是基于用户的协同过滤算法（userCF），第二种是基于物品的协同过滤算法（itemCF），第三种是基于模型的协同过滤算法（modelCF）。基于用户的协同过滤主要考虑的是用户之间的相似度，找出相似用户喜欢的物品，并预测目标用户对于对应物品的兴趣度，再根据兴趣度进行推荐。基于物品的协同过滤的原理类似，只不过此时寻找的是物品间的相似度。而基于模型的协同过滤，是运用机器学习建模来解决推荐问题，可使用的算法也非常多，如关联算法、聚类算法、分类算法、回归算法、矩阵分解和神经网络等等。  
+&emsp;&emsp;推荐系统的基本思想是利用用户和物品的特征信息，为用户推荐那些具有用户喜欢的物品的特征的物品。如根据用户喜欢的物品，为其推荐与用户喜欢的物品相似的物品，或者为用户推荐与他喜好类似的用户喜欢的物品。[^2] [^3]  
+&emsp;&emsp;Tapestry邮件过滤系统是最早的推荐系统，此后研究者们陆续提出了基于协同过滤的推荐算法、基于内容的推荐算法、基于关联规则的推荐算法以及基于多种规则的混合推荐算法。[^4]而基于协同过滤的推荐算法是目前实际生产环境中应用最多最广泛的推荐算法，协同过滤算法主要分为三种，第一种是基于用户的协同过滤算法（userCF），第二种是基于物品的协同过滤算法（itemCF），第三种是基于模型的协同过滤算法（modelCF）。基于用户的协同过滤主要考虑的是用户之间的相似度，找出相似用户喜欢的物品，并预测目标用户对于对应物品的兴趣度，再根据兴趣度进行推荐。基于物品的协同过滤的原理类似，只不过此时寻找的是物品间的相似度。而基于模型的协同过滤，是运用机器学习建模来解决推荐问题，可使用的算法也非常多，如关联算法、聚类算法、分类算法、回归算法、矩阵分解和神经网络等等。[^5] [^6]  
 &emsp;&emsp;本电影推荐系统的推荐算法采用基于物品的协同过滤（itemCF）。该算法的基本原理是根据用户的历史物品选择记录，计算这些物品和其他物品之间的相似度，再根据相似度计算出该用户对其他物品的兴趣度。对于本电影推荐系统，也就是根据用户对电影的评分记录和这些电影与其他电影的相似度计算出该用户对其他电影的兴趣度，最终根据兴趣度高低来为该用户推荐电影。设喜欢电影<sub>a</sub>的用户人数为$N(a)$，喜欢电影<sub>b</sub>的用户人数为$N(b)$，则电影<sub>a</sub>与电影<sub>b</sub>之间相似度的计算方法为：
 $$
 Sim_{ab}=\frac{|N(a)\bigcap N(b)|}{|N(a)|}
 $$
 
-该公式体现了喜欢电影<sub>a</sub>的用户中同时也喜欢电影<sub>b</sub>的比例，该比例越高，则表示电影<sub>a</sub>和电影<sub>b</sub>越相似。但这个公式存在一些问题，当电影<sub>b</sub>在用户中非常热门时，那么几乎所有电影和电影<sub>b</sub>的相似度都会接近1。所以为了避免这种情况，需要对该公式做出如下改进：
+该公式体现了喜欢电影<sub>a</sub>的用户中同时也喜欢电影<sub>b</sub>的比例，该比例越高，则表示电影<sub>a</sub>和电影<sub>b</sub>越相似。但这个公式存在一些问题，当电影<sub>b</sub>在用户中非常热门时，那么几乎所有电影和电影<sub>b</sub>的相似度都会接近1。所以为了避免这种情况，需要对该公式做出如下改进[^7] [^8] [^9] ：
 
 $$
 Sim_{ab}=\frac{|N(a)\bigcap N(b)|}{\sqrt{|N(a)||N(b)|}}
 $$
 
-在得到电影之间的相似度后，就可以根据用户的历史观影行为进行电影推荐了。用如下公式计算用户<sub>u</sub>对电影<sub>b</sub>的兴趣度：
+在得到电影之间的相似度后，就可以根据用户的历史观影行为进行电影推荐了。用如下公式计算用户<sub>u</sub>对电影<sub>b</sub>的兴趣度[^10]：
 
 $$
 Pub=\sum_{a\in N(u)\bigcap S(b,K)}Sim_{ab}\cdot R_{ua}
@@ -339,9 +346,20 @@ axios
 本次项目了解了MongoDB的使用，学习了NoSQL的一些语法，从一开始尝试写`map-reduce`到发现已经在5.0弃用，转用`aggregation`处理数据，对BSON格式有了进一步了解。此外使用pymongo连接了MongoDB，使用flask对接了前端和spark，进行了访问数据库和数据格式整理。
 
 #### SY
+通过本次项目我学习了推荐系统，推荐系统的目的帮助解决信息过载的问题，帮助用户从大量数据中获取需要的内容。而推荐算法是推荐系统最重要的部分，常见的有基于人口统计学的推荐算法、基于内容的推荐算法、基于协同过滤的推荐算法和混合推荐算法。本次项目我主要学习了如何用基于物品的协同过滤算法进行电影推荐，我实现的ItemCF算法较简单，在MovieLens这样庞大的数据集上表现的性能较差，若要提高性能，推荐算法还需要作较大的改进。
 
 ### 项目总结
 
 ## 参考文献
 > 不少于10篇中英文参考文献，并且在报告正文中按照学术规范予以正确的标注。不得列入正文中没有引用的参考文献
-[^1]: https://cn.vuejs.org/v2/guide/syntax.html
+
+[^1]: https://cn.vuejs.org/v2/guide/syntax.html 
+[^2]: https://d.wanfangdata.com.cn/periodical/ChlQZXJpb2RpY2FsQ0hJTmV3UzIwMjExMjMwEg1kbnh4MjAyMTA3MDQzGghsajJueDlqMw%3D%3D
+[^3]: https://d.wanfangdata.com.cn/periodical/ChlQZXJpb2RpY2FsQ0hJTmV3UzIwMjExMjMwEg9manpsZ2wyMDE5MTcyMTkaCHd0YmJmYWJp
+[^4]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESB0Q3Mjg2NzcaCHd1cm85cHY0
+[^5]: https://d.wanfangdata.com.cn/periodical/ChlQZXJpb2RpY2FsQ0hJTmV3UzIwMjExMjMwEg1yamRrMjAxNTA4MDMyGghmM2Q5c2R5Zg%3D%3D
+[^6]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESCUQwMTY4MTI5MhoIYnZyd3VzZjM%3D
+[^7]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESCFkzNjg1OTUzGghoN2Zlc2o3YQ%3D%3D
+[^8]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESCUQwMTc4MTY4NBoIaDdmZXNqN2E%3D
+[^9]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESCFkzNTU5NTc4GghoN2Zlc2o3YQ%3D%3D
+[^10]: https://d.wanfangdata.com.cn/thesis/ChJUaGVzaXNOZXdTMjAyMTEyMDESCUQwMTU5MTk5MRoIYTZ3Z3p2NTE%3D
