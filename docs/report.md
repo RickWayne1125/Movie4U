@@ -179,6 +179,8 @@ axios
 
 #### CCF
 
+学习并搭建了MongoDB, Apache Spark集群。使用PySpark Dataframe API编写推荐算法(spark/similarities/)，使用flask+cherrypy搭建后端。使用Spark MLlib ALS模型建立uFeature和iFeature矩阵，使用tensorflow模型进行调参，最后使用Horovod进行分布式训练和预测(spark/Scalable Movie Recommendations.ipynb)。
+
 #### JNR
 
 本次项目了解了MongoDB的使用，学习了NoSQL的一些语法，从一开始尝试写`map-reduce`到发现已经在5.0弃用，转用`aggregation`处理数据，对BSON格式有了进一步了解。此外使用pymongo连接了MongoDB，使用flask对接了前端和spark，进行了访问数据库和数据格式整理。
